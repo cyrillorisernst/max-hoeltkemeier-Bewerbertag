@@ -197,7 +197,8 @@ function findFreeContainerSpace(): DeviceContainer[] {
 }
 
 
-//command line interaction with user, renting first:
+//command line interaction with user, renting is created first, 
+//but users need to be able to choose between renting and returning later on:
 
 
 const availableDeviceTypes = getDeviceTypes(devices);
@@ -271,5 +272,6 @@ function clearAndListDevices() {
 }
 
 function takeDeviceFromContainer(){
-
+    
 }
+
