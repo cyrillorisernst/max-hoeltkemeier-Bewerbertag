@@ -197,9 +197,16 @@ function findFreeContainerSpace(): DeviceContainer[] {
 }
 
 
-//command line interaction with user:
+//command line interaction with user, renting first:
+
+
 const availableDeviceTypes = getDeviceTypes(devices);
+
+//these could also be given as parameters from and to their respective functions instead of defining them here
 let selectedDeviceType = "";
+let availableDeviceList = [];
+let selectedDeviceSerial = "";
+let selectedEmployeeId = "";
 
 const container = document.getElementById("containerDiv");
 if (container) {
@@ -221,24 +228,48 @@ if (btnContainer) {
 
         typeButton.addEventListener("click", () => {
             selectedDeviceType = entry;
+            clearAndListDevices();
         });
 
         btnContainer.appendChild(typeButton);
     });
 }
-
-// let typeIdx = prompt("Input the index of the device you are looking for:");
-
-
-let availableDeviceList = [];
-
 function clearAndListDevices() {
+
     if (availableDeviceTypes.length) {
         availableDeviceList = getAvailableDevicesByType(selectedDeviceType);
 
-        if (availableDeviceList) {
-            console.log(`List of available devices of type ${selectedDeviceType}`);
-            console.table(availableDeviceList);
+        if (availableDeviceList && container && btnContainer) {
+            container?.replaceChildren();
+            const newParagraph = document.createElement("p");
+            newParagraph.textContent = "What device do you want to rent?";
+
+            container.appendChild(newParagraph);
+
+            btnContainer?.replaceChildren();
+            availableDeviceList.forEach((entry, idx) => {
+
+                if (entry.functional) {
+                    const btn = document.createElement("button");
+
+                    btn.textContent = entry.manufacturer + " " + entry.serial;
+                    btn.id = entry.serial;
+
+
+                    btn.addEventListener("click", () => {
+                        
+                    });
+
+                    btnContainer.appendChild(btn);
+                }
+            });
+
+
         }
+        console.table(availableDeviceList);
     }
-};
+}
+
+function takeDeviceFromContainer(){
+
+}
